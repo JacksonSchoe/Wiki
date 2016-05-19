@@ -2,15 +2,27 @@
 <body>
 <?php include("header.html"); ?>
 
-<!-- Page content starts here -->
+<!-- Creating the page and inserting it into the database -->
 <?php
-$pages  = mysql_connect("localhost","root","notarealpassword") or die (mysql_error());
-mysql_select_db("cu_wiki", $pages);
+$database  = mysql_connect("localhost","root","babak16") or die (mysql_error());
+mysql_select_db("cu_wiki", $database);
 $title = $_POST['title'];
 $body = $_POST['body'];
-$sql = 
-mysql_query($sql, $accounts);
+//TODO: WRITE A CHECKING ALGORITHM TO AVOID DUPLICATE TITLES
+$sql = "INSERT INTO pages (Title, Body) VALUES('$title', '$body')";
+mysql_query($sql, $database);
+
+echo "A page for $title has been created!<br><br>";
 ?>
+
+<form action="index.php" method="get">
+	<input type="submit" value="Back">
+</form>
+<form action="page.php?name=<?php echo "$title"; ?>">
+	<!-- The hidden field is needed to be able to reference whatever page the user created -->
+	<input type="hidden" name="page" value=<?php echo "$title"; ?>>
+	<input type="submit" value="Go to your page">
+</form>
 
 </body>
 </html>
