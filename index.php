@@ -17,6 +17,7 @@
 
 <!-- Website HTML begins here -->
 <form action="index.php">
+	<DIV style="position:absolute; top:200px; left:200px;">Home page</DIV>
 	<center><input type="image" src="cw_logo.png" alt="Home Page"></center><br><br><br>
 </form>
 
