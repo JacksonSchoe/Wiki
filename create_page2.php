@@ -16,10 +16,6 @@
 }
 </style>
 
-
-
-
-
 <!-- Website HTML begins here -->
 <form action="index.php">
 	<center><input type="image" src="cw_logo.png" alt="Home Page"></center><br><br><br>
@@ -37,8 +33,19 @@
 </form>
 </div>
 
-<!-- Page content starts here -->
-<div style="position:relative; left:20px;">This is the home page</div>
 
-</html>
+
+
+
+<!-- Page content starts here -->
+<?php
+$pages  = mysql_connect("localhost","root","schoenermarck")
+or die (mysql_error());
+mysql_select_db("cu_wiki", $pages);
+$title = $_GET['title'];
+$body = $_GET['body'];
+mysql_query($sql, $accounts);
+?>
+
 </body>
+</html>
