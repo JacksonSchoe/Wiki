@@ -17,11 +17,7 @@ if(isset($_GET['same'])){
 		<input type="hidden" name="page" value=<?php echo "$title"; ?>>
 		<input type="submit" value="Go to your page">
 		</form>
-		
-		
 		<?php
-		
-		
 	}
 }
 
@@ -33,8 +29,8 @@ if(isset($_GET['same'])){
 <p><input type="submit" value="Create Page"></p>
 <b>Title for your page:<br></b> <input type = "text" name ="title" placeholder="Title" required="required"> <br><br>
 <b>Text about your page:<br></b> <textarea name = "body" rows="10" cols="40" placeholder="Text" required="required"></textarea> <br>
-</div>
 </form>
+</div>
 
 </body>
 </html>

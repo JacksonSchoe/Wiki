@@ -1,5 +1,5 @@
 <?php
-include("header.html");
+include('header.html');
 
 $database  = mysql_connect("localhost","root","babak16") or die (mysql_error());
 mysql_select_db("cu_wiki", $database);

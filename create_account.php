@@ -1,6 +1,6 @@
 <html>
 <body>
-<?php include("header.html"); ?>
+<?php include('header.html'); ?>
 
 <h1>Welcome to the account creator!</h1>
 
