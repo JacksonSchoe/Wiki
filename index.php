@@ -1,6 +1,6 @@
 <html>
 <body>
-<?php include("header.html"); ?>
+<?php include('header.html'); ?>
 
 <!-- Home page -->
 Welcome to the Carleton University Online Wiki!

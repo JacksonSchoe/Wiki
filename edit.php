@@ -27,15 +27,17 @@ if(isset($_GET['page'])){ //'page' is what wiki page the user is visiting
 	}
 	if($match){ //Display the page
 		echo "<h1>$title</h1>";
-		$body = nl2br($body); //New line to <br> function
-		echo "<p>$body</p>";
-		echo "<p>Last edited by: $last.</p>";
-		$page = str_replace(' ', '_', $page);
+		$title = str_replace(' ', '_', $title);
 		?>
-		<form action="edit.php">
-		<!-- The hidden field is needed to be able to reference whatever page the user created -->
-		<input type="hidden" name="page" value=<?php echo "$page"; ?>>
-		<input type="submit" value="Edit This Page">
+		<form action = "edit2.php" method = "POST">
+			<textarea name = "body" rows="10" cols="40" placeholder="Text" required="required"><?php echo $body; ?></textarea>
+			<input type="hidden" name="page" value=<?php echo "$title"; ?>>
+			<p><input type="submit" value="Submit Changes"></p>
+		</form>
+		<form action="page.php">
+			<!-- The hidden field is needed to be able to reference whatever page the user created -->
+			<input type="hidden" name="page" value=<?php echo "$title"; ?>>
+			<input type="submit" value="Discard Changes">
 		</form>
 		<?php
 	} else { //If the page can't be found

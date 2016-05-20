@@ -1,5 +1,5 @@
 <?php
-include("header.html");
+include('header.html');
 
 $database  = mysql_connect("localhost","root","babak16") or die (mysql_error());
 mysql_select_db("cu_wiki", $database);
@@ -14,8 +14,8 @@ $sql = "INSERT INTO users (username, password) VALUES('$username', '$password')"
 $sql2 = "SELECT * FROM users WHERE username = '$username'";
 $result = mysql_query($sql2, $database) or die (mysql_error());
 if($username == "" or $password == ""){
-		header("Location: create_account.php?miss=1"); //Redirect to the previous form with an error variable
-		die(); //In case something weird happens and the redirect doesn't occur
+	header("Location: create_account.php?miss=1"); //Redirect to the previous form with an error variable
+	die(); //In case something weird happens and the redirect doesn't occur
 }
 
 while($row = mysql_fetch_array($result)){
