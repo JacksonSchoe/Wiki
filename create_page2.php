@@ -4,7 +4,7 @@
 
 <!-- Creating the page and inserting it into the database -->
 <?php
-$database  = mysql_connect("localhost","root","babak16") or die (mysql_error());
+$database  = mysql_connect("localhost","root","schoenermarck") or die (mysql_error());
 mysql_select_db("cu_wiki", $database) or die (mysql_error());
 $title = $_POST['title'];
 $title = addslashes($title);
@@ -16,6 +16,20 @@ if($logged_in){ //This variable is set in the header
 } else { //If the user is not logged in
 	$sql = "INSERT INTO pages (Title, Body) VALUES('$title', '$body')";
 }
+
+$sql2 = "SELECT * FROM pages WHERE title = '$title'";
+$result = mysql_query($sql2, $database) or die (mysql_error());
+
+
+//While loop to search through the database checking to see if the title the user put is already in use
+while($row = mysql_fetch_array($result)){
+	if($title == $row['title']){
+		header("Location: create_page.php?same=1&title=$title"); //Redirect to the previous form with an error variable
+		die(); //In case something weird happens and the redirect doesn't occur
+	}
+}
+
+
 mysql_query($sql, $database) or die (mysql_error());
 
 echo "A page for $title has been created!<br><br>";
