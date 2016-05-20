@@ -8,7 +8,7 @@
 }
 
 #sidebar {
-    width: 150px;
+    width: 200px;
     height: 400px;
     background-color: lightgrey;
     float: left;
@@ -25,11 +25,51 @@
 <form action="create_page.php">
 	<br><input type="submit" value="Create New Page">
 </form>
-<form action="create_account.php">
-	<br><input type="submit" value="Create Account">
-</form>
-</center>
-</div>
+<?php
+//This is the string which holds the html for the login area
+//It will be displayed if the user is not logged in
+$login_fields='
+	<form  action="login.php" autocomplete="on" method="POST">
+		<br><br><h3>Log in</h3>
+		<p><input type="text" name="username" placeholder="Username" required="required"></p>
+		<p><input type="password" name="password" placeholder="Password" required="required"></p>
+		<input type="submit" name="submit" value="Log In">
+	</form>
+	<br><br>Don\'t have an account?
+	<form action="create_account.php">
+		<br><input type="submit" value="Create Account">
+	</form>
+	</center>
+	</div>';
+if(isset($_COOKIE['ID_cu_wiki'])){ //If a cookie exists
+	$database  = mysql_connect("localhost","root","babak16") or die (mysql_error());
+	mysql_select_db("cu_wiki", $database);
+	$username = $_COOKIE['ID_cu_wiki'];
+	$password = $_COOKIE['KEY_cu_wiki'];
+	$sql = "SELECT * FROM users WHERE username = '$username'";
+	$check = mysql_query($sql, $database) or die (mysql_error());
+	if(mysql_num_rows($check) == 0){ //If no accounts exist with that name
+		echo $login_fields;
+	}
+	while($info = mysql_fetch_array($check)){
+		$password = stripslashes($password);
+		$info['password'] = stripslashes($info['password']);
+		if($password != $info['password']){ //If wrong password is given
+			echo $login_fields;
+		} else {
+			echo "<br><p>Welcome to the site, $username!</p>";
+			echo '<p><form action="logout.php"><input type="submit" value="Log Out"></form></p></div>';
+		}
+	}
+} else {
+	echo $login_fields;
+	/*
+	<p><input type="checkbox" name="keep_login" id="keep_login">
+	<label for="keep_login">Keep me logged in</label></p>
+	*/
+}
+?>
+
 <div align="right" style="position:relative; right:50px;">
 <form action="search.php" method="GET">
 	<input type="text" style="width: 300px;" name="search_term">
@@ -38,6 +78,6 @@
 </div>
 
 <!-- Makes everything after the header indented a bit so it's away from the sidebar -->
-<div style="position:relative; left:20px;">
+<div style="position:absolute; left:230px;">
 </html>
 </body>
