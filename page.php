@@ -9,23 +9,25 @@ if(isset($_GET['page'])){ //'page' is what wiki page the user is visiting
 	
 	//Connecting to the MySQL database and opening the 'pages' table
 	$database = mysql_connect("localhost", "root", "babak16") or die(mysql_error());
-	mysql_select_db("cu_wiki", $database);
-	$sql = "SELECT * FROM pages";
-	$result = mysql_query($sql, $database);
+	mysql_select_db("cu_wiki", $database) or die (mysql_error());
+	$sql = "SELECT * FROM pages WHERE title = '$page'";
+	$result = mysql_query($sql, $database) or die (mysql_error());
 	
 	$match = false; //Boolean to represent if the page was found
 	while($row = mysql_fetch_array($result)){ //Loop through each page in the table
-		if($row['Title'] == $page){ //If the current table entry is the correct one
+		if($row['title'] == $page){ //If the current table entry is the correct one
 			//Record the relevant info and set match to true
-			$title = $row['Title'];
-			$body = $row['Body'];
+			$title = $row['title'];
+			$body = $row['body'];
+			$last = $row['last_edit'];
 			$match = true;
 			break; //Page has been found, so stop the loop
 		}
 	}
 	if($match){ //Display the page
 		echo "<div style='position:relative; left:20px;'><h1>$title</h1>";
-		echo "<p>$body</p></div>";
+		echo "<p>$body</p>";
+		echo "<p>Last edited by: $last.</p></div>";
 	} else { //If the page can't be found
 		echo "<div style='position:relative; left:20px;'><p><b>Uh-oh! Something went wrong!</b></p>";
 		echo "<form action='index.php'><input type='submit' value='Back'></form></div>";
