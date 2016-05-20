@@ -1,0 +1,5 @@
+TODO:
+
+-Make 'page.php' be able to display newlines (aka make it display multiple paragraphs)
+-Make it so that when you create a new page with the page creator, a space in the title will not break the "go to your page" button on create_page2.php
+-Make 'edit page' feature (which should also update the "last_edit" field in the database)
